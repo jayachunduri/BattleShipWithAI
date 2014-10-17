@@ -1,0 +1,6 @@
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\bin\Debug\BattleShipWithAI.exe.config
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\obj\Debug\BattleShipWithAI.csprojResolveAssemblyReference.cache
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\bin\Debug\BattleShipWithAI.exe
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\bin\Debug\BattleShipWithAI.pdb
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\obj\Debug\BattleShipWithAI.exe
+C:\Users\Technologist\Documents\GitHub\BattleShipWithAI\BattleShipWithAI\BattleShipWithAI\obj\Debug\BattleShipWithAI.pdb
