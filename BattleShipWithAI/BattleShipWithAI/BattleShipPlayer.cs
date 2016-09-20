@@ -19,7 +19,7 @@ namespace BattleShipWithAI
         //Constructors
         public BattleShipPlayer()
         {
-            score = 100;
+            
             pointsHit = new List<Point>();
             this.point = new Point();
             this.ocean = new Grid();

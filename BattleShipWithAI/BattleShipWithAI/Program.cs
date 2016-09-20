@@ -14,7 +14,7 @@ namespace BattleShipWithAI
         {
             Player player;
             Computer comp;
-           
+
             Greet();
             comp = new Computer();
 
@@ -26,7 +26,7 @@ namespace BattleShipWithAI
         static void Greet()
         {
             Console.WriteLine("Welcome to Battle Ship");
-           
+            Console.WriteLine();
         }
 
         //logic for playing the game
@@ -34,77 +34,85 @@ namespace BattleShipWithAI
         {
             while (!won)
             {
+                while ((!player.ocean.AllShipsDestroyed) || (!comp.ocean.AllShipsDestroyed))
+                {
                     //1st player's turn
-                    //verify if playe's ships are still alive
-                    //if (!player.ocean.AllShipsDestroyed)
-                    //{
-                    //    Console.WriteLine("Player's ocean");
-                    //    player.ocean.DisplayOcean();
-                    //    player.GenerateCoordinates();
-                    //    player.ocean.Target(player.point, player.score);
-                    //    player.ocean.DisplayOcean();
-                    //    Console.WriteLine("comp turn");
-                    //    Console.ReadKey();
-                    //    Console.Clear();
-
-                    //}
-                    //computer's turn
-                    //verify if all ships are alive
-
-                //(player.ocean.AllShipsDestroyed) ||
-
-                if (!comp.ocean.AllShipsDestroyed)
-                {
-                    Console.WriteLine("Computer's ocean");
-                    //comp.ocean.DisplayOcean();
-                    comp.GenerateCoordinates();
-                    comp.pointsHit.Add(comp.point);
-                    var x = comp.score;
-                    comp.ocean.Target(comp.point, ref x);
-                    comp.score = x;
-                    comp.ocean.DisplayOcean();
-                    Console.WriteLine("Your turn");
-                    Console.ReadKey();
-                    
                     Console.Clear();
-                }
-                else if ( (comp.ocean.AllShipsDestroyed))
-                {
-                    won = true;
-                }
-                }
+                    //Console.WriteLine("Press Enter to proceed with your turn");
+                    //Console.ReadKey();
+                    Console.WriteLine("Ocean with Computer's ships in, as of now");
+                    player.ocean.DisplayOcean(false);
+                    
+                    player.GenerateCoordinates();
+                    player.ocean.Target(player.point);
+                    
+                    //Console.Clear();
+                    Console.WriteLine("Ocean with enemy's ships in, after your current hit");
+                    player.ocean.DisplayOcean(false);
 
-                //we are out of loop means sobody one
-            //if (player.ocean.AllShipsDestroyed)
-            //{
-            //    Console.WriteLine("You lost");
-            //}
-            //else
+                    //verify if player won
+                    if (player.ocean.AllShipsDestroyed)
+                    {
+                        won = true;
+                        EndGame(player, comp);
+                        break;
+                    }
+                    else
+                    {
+                        //Now computers turn
+                        Console.WriteLine("Press Enter to proceed for computer's turn");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("Ocean with your ships in. You can see your ships, but not the computer");
+                        Console.WriteLine("Ocean before computers hit");
+                        comp.ocean.DisplayOcean(true);
+                        comp.GenerateCoordinates();
+                        comp.pointsHit.Add(comp.point);
+                        
+                        comp.ocean.Target(comp.point);
+                        
+                        Console.WriteLine("Ocean after computer's hit");
+                        comp.ocean.DisplayOcean(true);
+                        Console.WriteLine("press enter to proceed for your turn");
+                        Console.ReadKey();
+                        //verify if computer won
+                        if (comp.ocean.AllShipsDestroyed)
+                        {
+                            won = true;
+                            EndGame(player, comp);
+                            break;
+                        }
+                    }
+
+
+                }
+                
+                
+
+            }
+        }
+
+        public static void EndGame(Player pl, Computer comp)
+        {
+            Console.Clear();
+            if (pl.ocean.AllShipsDestroyed)
             {
                 Console.WriteLine("Congratulations you WON!");
             }
-            Console.WriteLine("Your Score: " + player.score);
-            Console.WriteLine("Computer's Score: " + comp.score);
+            else 
+            {
+                Console.WriteLine("You lost! Better luck next time!");
             }
+                Console.WriteLine("Your Score: " + pl.score);
+                Console.WriteLine("Ocean with Computer's ships");
+                pl.ocean.DisplayOcean(true);
 
-        //public void Target(BattleShipPlayer player)
-        //{
-        //    int x = player.point.x;
-        //    int y = player.point.y;
+                Console.WriteLine("Computer's Score: " + comp.score);
+                Console.WriteLine("Ocen with your ships in");
+                comp.ocean.DisplayOcean(true);
+                Console.ReadKey();
 
-        //    if (player.ocean[x, y].status == PointStatus.Ship)
-        //    {
-        //        player.ocean[x, y].status = PointStatus.Hit;
-        //        player.point.status = PointStatus.Hit;
-
-        //    }
-        //    else if (player.ocean[x, y].status == PointStatus.Empty)
-        //    {
-        //        player.ocean[x, y].status = PointStatus.Miss;
-        //        player.point.status = PointStatus.Miss;
-        //        player.score -= 1;
-        //    }
-        //}
-        
+                return;
+        }
     }
 }

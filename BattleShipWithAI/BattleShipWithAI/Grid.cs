@@ -85,7 +85,7 @@ namespace BattleShipWithAI
         }
 
         //method to display grid to user
-        public void DisplayOcean()
+        public void DisplayOcean(bool showShips)
         {
             
             Console.ForegroundColor = ConsoleColor.White;
@@ -108,10 +108,16 @@ namespace BattleShipWithAI
                         Console.Write("[ ]");
                         Console.ResetColor();
                     }
-                    else if (Ocean[x, y].status == PointStatus.Ship)
+                    else if ((Ocean[x, y].status == PointStatus.Ship) && showShips)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.Write("[S]");
+                        Console.ResetColor();
+                    }
+                    else if ((Ocean[x, y].status == PointStatus.Ship) && !showShips)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write("[ ]");
                         Console.ResetColor();
                     }
                     else if (Ocean[x, y].status == PointStatus.Hit)
@@ -135,8 +141,8 @@ namespace BattleShipWithAI
             Console.ResetColor();
         }
 
-        //determine the logic hits or misses
-        public void Target(Point point,ref int score)
+        //Hit or Miss: determine the logic for hits or misses
+        public void Target(Point point)
         {
             if (Ocean[point.x, point.y].status == PointStatus.Ship)
             {
@@ -148,13 +154,13 @@ namespace BattleShipWithAI
             {
                 Ocean[point.x, point.y].status = PointStatus.Miss;
                 point.status = PointStatus.Miss;
-                score -= 1;
+                
             }
         }
 
 
 
-        //function returns TRUE if there is a ship in that part of ocean or reached end of ocean
+        //function returns False if there is a ship in that part of ocean or reached end of ocean
         public bool CanPlaceShip(Ship shipToPlace, PlaceShipDirection direction, int startx, int starty)
         {
             //Make sure there is not already ship in that part of ocean
